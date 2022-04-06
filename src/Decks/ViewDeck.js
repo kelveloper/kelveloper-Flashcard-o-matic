@@ -14,6 +14,7 @@ function ViewDecks() {
       setDeck(res);
       setCards(res.cards);
     })
+    return () => abortController.abort()
   }, [deckId])
 
   function handleDeckDelete(id) {

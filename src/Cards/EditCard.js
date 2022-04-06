@@ -14,13 +14,15 @@ export default function CardEdit() {
   });
 
   useEffect(() => {
+    const abortController = new AbortController();
     async function getCardDeck() {
-      const cardResponse = await readCard(cardId);
-      const deckResponse = await readDeck(deckId);
+      const cardResponse = await readCard(cardId, abortController.signal);
+      const deckResponse = await readDeck(deckId, abortController.signal);
       setCard(cardResponse);
       setDeck(deckResponse);
     }
     getCardDeck();
+    return () => abortController.abort();
   }, [deckId, cardId, setDeck]);
 
   function handleChange({ target }) {

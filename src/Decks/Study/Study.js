@@ -13,11 +13,13 @@ export default function Study() {
     const history = useHistory();
 
     useEffect(() => {
+    const abortController = new AbortController()
     async function GetDeck() {
-      const response = await readDeck(deckId);
+      const response = await readDeck(deckId,abortController.signal);
       setDeck(response);
     }
     GetDeck();
+    return () => abortController.abort()
   }, [deckId]);
   
     const cardCount = deck.cards.length;

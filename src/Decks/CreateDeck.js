@@ -14,7 +14,8 @@ export default function CreateDeck() {
 
     const handleSubmit = (event) => {
         event.preventDefault()
-        createDeck(deck, abortController.signal).then(() => {
+        const abortController = new AbortController();
+        createDeck(deck, abortController.singal).then(() => {
             history.push("/");
         })
     }

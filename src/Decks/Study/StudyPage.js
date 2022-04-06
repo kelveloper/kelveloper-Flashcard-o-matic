@@ -12,7 +12,7 @@ function StudyPage({ deckId, name, children }) {
                         </Link>
                     </li>
                     <li className="breadcrumb-item" aria-current="page">
-                        <Link to={`/decks${deckId}`}>{name}
+                        <Link to={`/decks/${deckId}`}>{name}
                         </Link>
                     </li>
                     <li className="breadcrumb-item active" aria-current="page">

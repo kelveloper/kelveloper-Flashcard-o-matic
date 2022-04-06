@@ -9,9 +9,11 @@ export default function EditDeck() {
 
 
     useEffect(() => {
-        readDeck(deckId).then((res) => {
+        const abortController = new AbortController();
+        readDeck(deckId, abortController.signal).then((res) => {
             setDeck(res);
         })
+        return () => abortController.abort()
     }, [deckId])
 
 
@@ -20,7 +22,8 @@ export default function EditDeck() {
     }
 
     const handleSubmit = (event) => {
-        event.preventDefault()
+        event.preventDefault();
+        const abortController = new AbortController();
         updateDeck(deck, abortController.signal).then((res) => {
             history.push(`/decks/${res.id}`);
         })

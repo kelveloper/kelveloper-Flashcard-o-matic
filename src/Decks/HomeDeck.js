@@ -9,17 +9,19 @@ function Home() {
   const [decks, setDecks] = useState([]);
 
   useEffect(() => {
+    const abortController = new AbortController();
     async function LoadDecks() {
       const response = await listDecks();
-      setDecks(response);
+      setDecks(response, abortController.signal);
     }
     LoadDecks();
+    return () => abortController.abort()
   }, []);
 
 //delete button
   function handleDelete(event) {
     if (window.confirm("Delete this deck? You will not be able to recover it.")) {
-      history.push("/");
+      history.go(0);
       deleteDeck(event);
     }
   }
